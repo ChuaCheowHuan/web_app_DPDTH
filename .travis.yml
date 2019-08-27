@@ -7,5 +7,5 @@ install:
     - pip install -r requirements.txt
 script:
     #- docker-compose build
-    - docker-compose up
+    #- docker-compose up
     - docker-compose run web python manage.py test
