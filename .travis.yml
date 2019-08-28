@@ -3,11 +3,16 @@ python:
     - 3.6
 services:
     - docker
-    - postgresql
+#    - postgresql
+before_install:
+    # Let's stop postgresql
+    - sudo service postgresql stop
+    # wait for postgresql to shutdown
+    - while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
 install:
     - pip install -r requirements.txt
-before_script:
-  - psql -c 'create database travisci;' -U postgres
+#before_script:
+#  - psql -c 'create database travisci;' -U postgres
 script:
 #    - docker-compose build
 #    - docker-compose up
