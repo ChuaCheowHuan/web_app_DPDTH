@@ -3,7 +3,7 @@ python:
     - 3.6
 services:
     - docker
-#    - postgresql
+    - postgresql
 install:
     - pip install -r requirements.txt
 #before_script:
