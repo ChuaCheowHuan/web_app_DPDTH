@@ -3,11 +3,11 @@ python:
     - 3.6
 services:
     - docker
-    - postgresql
+#    - postgresql
 install:
     - pip install -r requirements.txt
-before_script:
-  - psql -c 'create database postgres;' -U postgres
+#before_script:
+#  - psql -c 'create database postgres;' -U postgres
 script:
     - docker-compose build
 #    - docker-compose up
