@@ -8,5 +8,6 @@ install:
 #before_script:
 #  - psql -c 'create database travisci;' -U postgres
 script:
+    - python test/wait-for-it.py
 #    - docker-compose build
     - docker-compose run web python manage.py test
