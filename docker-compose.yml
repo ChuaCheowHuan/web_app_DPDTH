@@ -3,12 +3,6 @@ version: '3'
 services:
     db:
         image: postgres
-        healthcheck:
-            test: ["CMD", "curl", "-f", "http://localhost:5432"]
-            interval: 30s
-            timeout: 10s
-            retries: 5
-
     migration:
         build: .
         command: python3 manage.py migrate
