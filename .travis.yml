@@ -3,10 +3,12 @@ python:
     - 3.6
 services:
     - docker
+        command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; npm start'
 #    - postgres
 install:
     - pip install -r requirements.txt
 #before_script:
+#    - psql -c 'create database testdb;' -U postgres
 #    - psql -c 'create database travisci;' -U postgres
 script:
     - docker-compose build
