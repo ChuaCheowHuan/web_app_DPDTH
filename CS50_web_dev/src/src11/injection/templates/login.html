@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1>Login</h1>
+{% if invalid %}
+    <div>
+        Error: invalid credentials
+    </div>
+{% endif %}
+<form action="/login" method="post">
+    <div>
+        <input name="username" type="text" placeholder="Username" autofocus>
+    </div>
+    <div>
+        <input name="password" type="password" placeholder="Password">
+    </div>
+    <div>
+        <input type="submit">
+    </div>
+</form>
+{% endblock %}

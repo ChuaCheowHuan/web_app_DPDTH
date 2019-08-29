@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Website</title>
+    </head>
+    <body>
+        <h1>Message List</h1>
+        <ul>
+            {% for message in messages %}
+                <li>{{ message.contents | safe }}</li>
+            {% endfor %}
+        </ul>
+        <hr/>
+        <form action="/" method="post">
+            <input name="contents" type="text" placeholder="Message">
+            <input type="submit">
+        </form>
+    </body>
+</html>

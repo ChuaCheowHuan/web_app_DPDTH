@@ -1,0 +1,521 @@
+<h1 id="testing-cicd">Testing, CI/CD</h1>
+
+<h2 id="testing">Testing</h2>
+
+<ul>
+  <li>As web applications become increasingly sophisticated and complex, it becomes increasingly important to thoroughly test them. Testing ensures that changes to a function used in many places don’t cause completely different parts of the application to break. Or, functions may behave differently for different types of input, so all types of input should be tested to ensure that the application handles them well.</li>
+  <li>Here’s a basic function, completely separate from any web application, to showcase the idea of testing.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="k">def</span> <span class="nf">is_prime</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="s">"""Determines if a non-negative integer is prime."""</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">return</span> <span class="bp">True</span>
+</code></pre></div></div>
+
+<ul>
+  <li>This function checks if an integer is prime by ensuring that it’s above 2 (the smallest prime) and that it is not evenly divisble by any number less than its square root.</li>
+  <li>One way to test this function would be to simply run this function in the Python interpreter and manually test it. While this might work for a small example, this will ultimately become tedious. The next best step is to write a test function.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">prime</span> <span class="kn">import</span> <span class="n">is_prime</span>
+
+<span class="k">def</span> <span class="nf">test_prime</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+  <span class="k">if</span> <span class="n">is_prime</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">!=</span> <span class="n">expected</span><span class="p">:</span>
+      <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">"ERROR on is_prime({n}), expected {expected}"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>A simple way to use this test function is to write a short Python program that runs this test for a series of inputs. That might look like this:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">prime</span> <span class="kn">import</span> <span class="n">is_prime</span>
+
+<span class="k">def</span> <span class="nf">test_prime</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">is_prime</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">!=</span> <span class="n">expected</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">"ERROR on is_prime({n}), expected {expected}"</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">test_prime</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="n">test_prime</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="n">test_prime</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="n">test_prime</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="n">test_prime</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="n">test_prime</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="n">test_prime</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">test_prime</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">test_prime</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+<ul>
+  <li>This can be run in the terminal with <code class="highlighter-rouge">python tests0.py</code>.</li>
+  <li>Now that the testing is automated, when a change is made to <code class="highlighter-rouge">prime.py</code>, it is easy to see if the problem is solved.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+</code></pre></div></div>
+
+<ul>
+  <li>This was a simple off-by-1 error. <code class="highlighter-rouge">range</code> returns values starting at the first argument and up to, but not including, the second.</li>
+  <li>Running the test file again after this change will produce no errors. This does not mean the function is totally correct, only that the given tests have been passed. Now, the challenge is to write good, comprehensive tests that cover all possible conditions. In this case, that might mean testing even and odd numbers, etc. This becomes increasingly important for larger applications.</li>
+  <li>Remember also that we do not necessarily only run tests when we think things might break. Sometimes, we might do so after <em>refactoring</em> our code, trying to optimize its functionality. The above <code class="highlighter-rouge">is_prime()</code> function could, perhaps, be optimized in a more “Pythonic” way (Python is somewhat notorious for examples like this) as follows:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="k">def</span> <span class="nf">is_prime</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">n</span> <span class="o">%</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Breaking this down, there are two conditions being checked:
+    <ul>
+      <li>Is <code class="highlighter-rouge">n</code> greater than 1; and</li>
+      <li>Is it the case that all of the values from 2 up to (and including) the square root have a “truthy” value of <code class="highlighter-rouge">True</code>? (If so, that means <code class="highlighter-rouge">n % i</code> is nonzero for all of them; i.e., <code class="highlighter-rouge">n</code> is not evenly divisible by any of them.)</li>
+    </ul>
+  </li>
+  <li>If, and only if, both of those are true, is the number considered prime!</li>
+</ul>
+
+<h2 id="assert"><code class="highlighter-rouge">assert</code></h2>
+<ul>
+  <li>A useful Python feature for testing is the built-in <code class="highlighter-rouge">assert</code> command, which is followed by an boolean expression. If it does not evaluate to <code class="highlighter-rouge">True</code>, Python will throw an <code class="highlighter-rouge">AssertionError</code>.</li>
+  <li>All programs, on exit, return an exit code. Generally speaking, an exit code of 0 indicates that everything went well, and any other code indicates an error. To examine an exit code in bash after running a Python script, use <code class="highlighter-rouge">echo $?</code>.</li>
+</ul>
+
+<h2 id="unittest"><code class="highlighter-rouge">unittest</code></h2>
+
+<ul>
+  <li><code class="highlighter-rouge">unittest</code> is a built-in Python library for testing. Testing <code class="highlighter-rouge">is_prime</code> with <code class="highlighter-rouge">unittest</code> might look like this:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">import</span> <span class="nn">unittest</span>
+
+  <span class="kn">from</span> <span class="nn">prime</span> <span class="kn">import</span> <span class="n">is_prime</span>
+
+
+  <span class="k">class</span> <span class="nc">Tests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+      <span class="k">def</span> <span class="nf">test_1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <span class="s">"""Check that 1 is not prime."""</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">is_prime</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+      <span class="k">def</span> <span class="nf">test_2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <span class="s">"""Check that 2 is prime."""</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">is_prime</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+
+      <span class="k">def</span> <span class="nf">test_8</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <span class="s">"""Check that 8 is not prime."""</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">is_prime</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+
+      <span class="k">def</span> <span class="nf">test_11</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <span class="s">"""Check that 11 is prime."""</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">is_prime</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span>
+
+      <span class="k">def</span> <span class="nf">test_25</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <span class="s">"""Check that 25 is not prime."""</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">is_prime</span><span class="p">(</span><span class="mi">25</span><span class="p">))</span>
+
+      <span class="k">def</span> <span class="nf">test_28</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <span class="s">"""Check that 28 is not prime."""</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">is_prime</span><span class="p">(</span><span class="mi">28</span><span class="p">))</span>
+
+
+  <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+      <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</code></pre></div>    </div>
+    <ul>
+      <li><code class="highlighter-rouge">Tests</code> inherits from <code class="highlighter-rouge">unittest.TestCase</code>, which signifies that it contains a series of tests, each of which is capable of extending the basic functionality defined in <code class="highlighter-rouge">unittest.TestCase</code>.</li>
+      <li>Each test inside <code class="highlighter-rouge">Tests</code> is simply a method with an appropriate “docstring” labelling it.</li>
+      <li><code class="highlighter-rouge">unittest</code> has a series of built-in, more advanced and readable assert statements. Instead of using <code class="highlighter-rouge">assert isPrime(1) == False</code>, simply use <code class="highlighter-rouge">self.assertFalse(is_prime(1))</code>.</li>
+      <li><code class="highlighter-rouge">unittest.main()</code> will run all the tests.</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">unittest</code> methods include (but are not limited to):
+    <ul>
+      <li><code class="highlighter-rouge">assertEqual</code></li>
+      <li><code class="highlighter-rouge">assertNotEqual</code></li>
+      <li><code class="highlighter-rouge">assertTrue</code></li>
+      <li><code class="highlighter-rouge">assertFalse</code></li>
+      <li><code class="highlighter-rouge">assertIn</code> : checks if an item is in a list</li>
+      <li><code class="highlighter-rouge">assertNotIn</code> : checks if an item is not in a list</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="testing-web-applications-with-django">Testing Web Applications with Django</h3>
+
+<h4 id="the-back-end">The Back-End</h4>
+
+<ul>
+  <li>Django has its own testing framework to make it easy to test web applications. Test code is found in the application directory in <code class="highlighter-rouge">tests.py</code>, the one file we did not really consider in Lecture 7.</li>
+  <li>Here’s a function that could be in the <code class="highlighter-rouge">Flight</code> model and that might need to be tested if it is going to be used in a view.
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">def</span> <span class="nf">is_valid_flight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">origin</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">destination</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>This returns <code class="highlighter-rouge">True</code> if the origin and the destination aren’t the same and its duration is positive.</li>
+    </ul>
+  </li>
+  <li>Here’s an example <code class="highlighter-rouge">flights/tests.py</code>:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">TestCase</span>
+
+  <span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Airport</span><span class="p">,</span> <span class="n">Flight</span>
+
+  <span class="c"># Create your tests here.</span>
+  <span class="k">class</span> <span class="nc">ModelsTestCase</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+
+      <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+          <span class="c"># Create airports.</span>
+          <span class="n">a1</span> <span class="o">=</span> <span class="n">Airport</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="s">"AAA"</span><span class="p">,</span> <span class="n">city</span><span class="o">=</span><span class="s">"City A"</span><span class="p">)</span>
+          <span class="n">a2</span> <span class="o">=</span> <span class="n">Airport</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="s">"BBB"</span><span class="p">,</span> <span class="n">city</span><span class="o">=</span><span class="s">"City B"</span><span class="p">)</span>
+
+          <span class="c"># Create flights.</span>
+          <span class="n">Flight</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="n">a1</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">a2</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+          <span class="n">Flight</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="n">a1</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">a1</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+          <span class="n">Flight</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="n">a1</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">a2</span><span class="p">,</span> <span class="n">duration</span><span class="o">=-</span><span class="mi">100</span><span class="p">)</span>
+
+      <span class="k">def</span> <span class="nf">test_departures_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <span class="n">a</span> <span class="o">=</span> <span class="n">Airport</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="s">"AAA"</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">departures</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">3</span><span class="p">)</span>
+
+      <span class="k">def</span> <span class="nf">test_arrivals_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <span class="n">a</span> <span class="o">=</span> <span class="n">Airport</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="s">"AAA"</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">arrivals</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
+
+      <span class="k">def</span> <span class="nf">test_valid_flight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <span class="n">a1</span> <span class="o">=</span> <span class="n">Airport</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="s">"AAA"</span><span class="p">)</span>
+          <span class="n">a2</span> <span class="o">=</span> <span class="n">Airport</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="s">"BBB"</span><span class="p">)</span>
+          <span class="n">f</span> <span class="o">=</span> <span class="n">Flight</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="n">a1</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">a2</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">is_valid_flight</span><span class="p">())</span>
+
+      <span class="k">def</span> <span class="nf">test_invalid_flight_destination</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <span class="n">a1</span> <span class="o">=</span> <span class="n">Airport</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="s">"AAA"</span><span class="p">)</span>
+          <span class="n">f</span> <span class="o">=</span> <span class="n">Flight</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="n">a1</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">a1</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">is_valid_flight</span><span class="p">())</span>
+
+      <span class="k">def</span> <span class="nf">test_invalid_flight_duration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <span class="n">a1</span> <span class="o">=</span> <span class="n">Airport</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="s">"AAA"</span><span class="p">)</span>
+          <span class="n">a2</span> <span class="o">=</span> <span class="n">Airport</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="s">"BBB"</span><span class="p">)</span>
+          <span class="n">f</span> <span class="o">=</span> <span class="n">Flight</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="n">a1</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">a2</span><span class="p">,</span> <span class="n">duration</span><span class="o">=-</span><span class="mi">100</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">is_valid_flight</span><span class="p">())</span>
+</code></pre></div>    </div>
+    <ul>
+      <li><code class="highlighter-rouge">TestCase</code> is a extension to the <code class="highlighter-rouge">unittest</code> framework that makes it easier to test some Django application specific things.</li>
+      <li><code class="highlighter-rouge">ModelsTestCase</code> is a class that, like before, contains functions for every test.</li>
+      <li>In the <code class="highlighter-rouge">TestCase</code> framework, the <code class="highlighter-rouge">setUp</code> function will be run before any tests. In this case, some airports and flights are created for the tests to check.
+        <ul>
+          <li>The <code class="highlighter-rouge">setUp</code> function is actually run before every test, to ensure that the tests are independent.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Using Django’s infrastructure to run this test is quite powerful because it makes it easy to run all tests across all applications and, because Django knows tests are likely to involve databse manipulations, it creates a separate test database that tests can interact with. This means that <code class="highlighter-rouge">setUp</code> functions like the one above won’t mess up the real database by trying to add fake airports and flights for testing purposes.</li>
+  <li>To run the tests, run simply <code class="highlighter-rouge">python manage.py test</code>.</li>
+</ul>
+
+<h4 id="defending-against-bad-data">Defending Against Bad Data</h4>
+
+<ul>
+  <li>We can also write methods in our models to prevent against illogical or “bad” data. One instance, for example, might be to try to prevent content managers from trying to create flights with the same origin and destination, or a non-positive duration. To do this, we can override the functionality of some more built-in Django testing functions.</li>
+  <li>In <code class="highlighter-rouge">airline1/models.py</code>:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Add a method that raises "Validation errors" if the data is illogical.</span>
+<span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">destination</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s">"Origin and destination must be different."</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s">"Duration must be positive."</span><span class="p">)</span>
+
+<span class="c"># Call this method before trying to add data, overriding the default behavior of built-in `save`.</span>
+<span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>
+
+    <span class="c"># This syntax now calls Django's own "save" function, adding this data to the DB (if `clean` was ok).</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="the-front-end">The Front End</h4>
+
+<ul>
+  <li>Now that the models have been tested, the next step is to test the views.
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Max</span>
+  <span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">TestCase</span>
+
+  <span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Airport</span><span class="p">,</span> <span class="n">Flight</span><span class="p">,</span> <span class="n">Passenger</span>
+
+  <span class="c"># Create your tests here.</span>
+  <span class="k">class</span> <span class="nc">FlightsTestCase</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+
+      <span class="c"># ...same setUp and model testing as before...</span>
+
+      <span class="k">def</span> <span class="nf">test_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <span class="n">c</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+          <span class="n">response</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/"</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s">"flights"</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">2</span><span class="p">)</span>
+
+      <span class="k">def</span> <span class="nf">test_valid_flight_page</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <span class="n">a1</span> <span class="o">=</span> <span class="n">Airport</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="s">"AAA"</span><span class="p">)</span>
+          <span class="n">f</span> <span class="o">=</span> <span class="n">Flight</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="n">a1</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">a1</span><span class="p">)</span>
+
+          <span class="n">c</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+          <span class="n">response</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">f</span><span class="s">"/{f.id}"</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+
+      <span class="k">def</span> <span class="nf">test_invalid_flight_page</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <span class="n">max_id</span> <span class="o">=</span> <span class="n">Flight</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">Max</span><span class="p">(</span><span class="s">"id"</span><span class="p">))[</span><span class="s">"id__max"</span><span class="p">]</span>
+
+          <span class="n">c</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+          <span class="n">response</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">f</span><span class="s">"/{max_id + 1}"</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">404</span><span class="p">)</span>
+
+      <span class="k">def</span> <span class="nf">test_flight_page_passengers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <span class="n">f</span> <span class="o">=</span> <span class="n">Flight</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+          <span class="n">p</span> <span class="o">=</span> <span class="n">Passenger</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">first</span><span class="o">=</span><span class="s">"Alice"</span><span class="p">,</span> <span class="n">last</span><span class="o">=</span><span class="s">"Adams"</span><span class="p">)</span>
+          <span class="n">f</span><span class="o">.</span><span class="n">passengers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+
+          <span class="n">c</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+          <span class="n">response</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">f</span><span class="s">"/{f.id}"</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s">"passengers"</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
+
+      <span class="k">def</span> <span class="nf">test_flight_page_non_passengers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <span class="n">f</span> <span class="o">=</span> <span class="n">Flight</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+          <span class="n">p</span> <span class="o">=</span> <span class="n">Passenger</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">first</span><span class="o">=</span><span class="s">"Alice"</span><span class="p">,</span> <span class="n">last</span><span class="o">=</span><span class="s">"Adams"</span><span class="p">)</span>
+
+          <span class="n">c</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+          <span class="n">response</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">f</span><span class="s">"/{f.id}"</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s">"non_passengers"</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li><code class="highlighter-rouge">Client</code> simulates a web client that, for testing purposes, can make requests to and get responses from a web server. Using <code class="highlighter-rouge">Client</code>, requests to different pages can be simulated to ensure that the expected information is being returned.</li>
+  <li><code class="highlighter-rouge">c.get("/")</code> simply uses a <code class="highlighter-rouge">Client</code> object to make a <code class="highlighter-rouge">GET</code> request to a route and returns the response (stored as <code class="highlighter-rouge">response</code>). This response can be checked by verifying <code class="highlighter-rouge">response.status_code</code> and the contents of <code class="highlighter-rouge">response.contexts</code>.</li>
+  <li>An argument can be passed to a URL using the same curly brace/dot notation syntax as before.</li>
+  <li><code class="highlighter-rouge">Flight.objects.all().aggregate(Max("id"))["id__max"]</code> returns the maximum ID value of any flight. This is for test the response to an invalid flight ID in a URL.</li>
+</ul>
+
+<h2 id="selenium">Selenium</h2>
+
+<ul>
+  <li>For testing browser behavior, including JavaScript code, a separate browser testing tool is necessary. One such tool is Selenium, which uses a web driver that allows Python code to programatically pretend to be a user interacting with a webpage. Here’s an example webpage to test that has a counter that can be incremented or decremented with two buttons:</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Counter<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;script&gt;</span>
+
+            <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'DOMContentLoaded'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span>  <span class="p">{</span>
+
+                <span class="kd">let</span> <span class="nx">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+                <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'#increase'</span><span class="p">).</span><span class="nx">onclick</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                    <span class="nx">counter</span><span class="o">++</span><span class="p">;</span>
+                    <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'h1'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">counter</span><span class="p">;</span>
+                <span class="p">};</span>
+
+                <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'#decrease'</span><span class="p">).</span><span class="nx">onclick</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                    <span class="nx">counter</span><span class="o">--</span><span class="p">;</span>
+                    <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'h1'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">counter</span><span class="p">;</span>
+                <span class="p">};</span>
+            <span class="p">});</span>
+        <span class="nt">&lt;/script&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>0<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"increase"</span><span class="nt">&gt;</span>+<span class="nt">&lt;/button&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"decrease"</span><span class="nt">&gt;</span>-<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Here’s the Selenium Python code to test the page:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+
+<span class="c"># A convenience function to turn a filename into a full path, as needed for a browser</span>
+<span class="k">def</span> <span class="nf">file_uri</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span><span class="o">.</span><span class="n">as_uri</span><span class="p">()</span>
+
+<span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">WebpageTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">test_title</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">file_uri</span><span class="p">(</span><span class="s">"counter.html"</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">driver</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="s">"Counter"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_increase</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">file_uri</span><span class="p">(</span><span class="s">"counter.html"</span><span class="p">))</span>
+        <span class="n">increase</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s">"increase"</span><span class="p">)</span>
+        <span class="n">increase</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_tag_name</span><span class="p">(</span><span class="s">"h1"</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s">"1"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_decrease</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">file_uri</span><span class="p">(</span><span class="s">"counter.html"</span><span class="p">))</span>
+        <span class="n">decrease</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s">"decrease"</span><span class="p">)</span>
+        <span class="n">decrease</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_tag_name</span><span class="p">(</span><span class="s">"h1"</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s">"-1"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_multiple_increase</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">file_uri</span><span class="p">(</span><span class="s">"counter.html"</span><span class="p">))</span>
+        <span class="n">increase</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s">"increase"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">increase</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_tag_name</span><span class="p">(</span><span class="s">"h1"</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s">"3"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">file_uri</code> takes in an HTML file and returns the URL that would access that file.</li>
+  <li><code class="highlighter-rouge">webdriver.Chrome()</code> is one of many built-in Selenium web drivers. This one in particular is for interacting with Google Chrome.</li>
+  <li><code class="highlighter-rouge">driver.get</code> will open up whatever URL is passed in.</li>
+  <li>Each button is programmatically tested by finding each <code class="highlighter-rouge">button</code> element by ID and calling the <code class="highlighter-rouge">click</code> function to simulate a user clicking on it. Then, whatever the text display is can get verified to match the expected value.</li>
+</ul>
+
+<h2 id="continuous-integration-and-continuous-delivery">Continuous Integration and Continuous Delivery</h2>
+
+<ul>
+  <li>CI (continuous integration) consists of frequent integration and merging of code changes between different project contributors back to a main branch along with automated unit testing to verify these integrations. Likewise, CD (continuous delivery) consists of making frequent, incremental updates to a web application as those updates are finished.</li>
+  <li>There are many different tools with the purpose of facilitating CI and testing. One of the more popular ones and the one used in this class is Travis. When code is pushed to GitHub, GitHub will notify Travis of those changes. Travis will pull that code and run some tests on it. GitHub will then be notified of the test results.</li>
+  <li>Travis’s configuration file, which lists any tests, installations, etc., is written in the YAML file format. YAML files are composed of keys and values, similar to JSON.</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">key1</span><span class="pi">:</span> <span class="s">value1</span>
+<span class="na">key2</span><span class="pi">:</span> <span class="s">value2</span>
+<span class="na">key3</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">item1</span>
+    <span class="pi">-</span> <span class="s">item2</span>
+    <span class="pi">-</span> <span class="s">item3</span>
+<span class="na">key4</span><span class="pi">:</span>
+    <span class="na">nested_key1</span><span class="pi">:</span> <span class="s">value3</span>
+    <span class="na">nested_key2</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">item4</span>
+        <span class="pi">-</span> <span class="s">item5</span>
+</code></pre></div></div>
+
+<ul>
+  <li>In particular, a very simple Travis YAML file will look something like this:</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">language</span><span class="pi">:</span> <span class="s">python</span>
+<span class="na">python</span><span class="pi">:</span> <span class="s">3.6</span>
+<span class="na">install</span><span class="pi">:</span> <span class="s">pip install -r requirements.txt</span>
+<span class="na">script</span><span class="pi">:</span> <span class="s">python manage.py test</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">install</code> lists the commands that should be run to install any necessary components before testing. Listing any requirements, such as Django, in <code class="highlighter-rouge">requirements.txt</code> will automate that installation.</li>
+  <li><code class="highlighter-rouge">script</code> lists the command for actually running the tests.</li>
+  <li>To actually configure Travis, go to https://travis-ci.org and sync a GitHub account. Then, any repositories that should be tracked by Travis can be selected. After making a push to GitHub, it will be visible on the Travis website as a ‘build’ and will execute the commands as dictated in the configuration file. Travis is able to check whether or not tests were passed by checking the exit code of the testing command. If a build fails any tests, this will be marked on GitHub’s commit log with a red X. A build currently being tested will be marked with a yellow dot, and a successful build will be marked with a green check.</li>
+</ul>
+
+<h2 id="continuous-deployment">Continuous Deployment</h2>
+
+<h3 id="deploying-our-app-to-heroku">Deploying our app to Heroku:</h3>
+
+<ul>
+  <li>To creating a Heroku app, create an account if you don’t have one or login if you do.</li>
+  <li>Create a new app specifying its name which has to be unique and its region.</li>
+  <li>Generating a Heroku API key to Authorize Travis CI:
+    <ul>
+      <li>Head to <strong>Applications</strong> tab under the account settings.</li>
+      <li>Under <strong>Authorizations</strong>, click Create Authorization.</li>
+      <li>Add a description and optionally specify a duration (in seconds) after which this API key will expire (you likely don’t want to expire this if you intend for your project to run indefinitely) then click Create.</li>
+    </ul>
+  </li>
+  <li>Provisioning a PostgreSQL database:
+    <ul>
+      <li>Head to your app’s resources dashboard which should have a URL of the form <code class="highlighter-rouge">https://dashboard.heroku.com/apps/&lt;APP-NAME&gt;/resources</code> where APP NAME is the actual name of your app. In our example, it was <code class="highlighter-rouge">https://dashboard.heroku.com/apps/kzidane-airline/resources</code> for example.</li>
+    </ul>
+  </li>
+  <li>Under <strong>Add-ons</strong> find Heroku Postgres.</li>
+  <li>Select the item and click Provision to create your PostgreSQL database.</li>
+  <li>Finding the database credentials:
+    <ul>
+      <li>Click on the Database that you just created then click the Settings tab near the top.</li>
+      <li>Next to Database Credentials click <strong>View Credentials</strong>.</li>
+    </ul>
+  </li>
+  <li>Setting environment variables <em>for the Heroku app</em>:
+    <ul>
+      <li>In your app settings which should be at <code class="highlighter-rouge">https://dashboard.heroku.com/apps/&lt;APP NAME&gt;/settings</code>, click <strong>Reveal Config Vars</strong>.</li>
+      <li>Add the following variables (recall these are accessed in airline4/airline/settings.py in the demo):
+        <ul>
+          <li><code class="highlighter-rouge">DATABASE_USER</code> (should be the value of User from database credentials)</li>
+          <li><code class="highlighter-rouge">DATABASE_PASSWORD</code> (should be the value of Password from database credentials)</li>
+          <li><code class="highlighter-rouge">DATABASE_NAME</code> (should be the value of Database from database credentials)</li>
+          <li><code class="highlighter-rouge">DATABASE_HOST</code> (should be the value of Host from database credentials)</li>
+          <li><code class="highlighter-rouge">DATABASE_PORT</code> (should be the value of Port from database credentials)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Viewing the logs (to see project behavior)
+    <ul>
+      <li>In your app dashboard which should be at <code class="highlighter-rouge">https://dashboard.heroku.com/apps/&lt;APP NAME&gt;</code> click on More on the top-right then click View logs.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="required-files-for-heroku">Required files for Heroku</h3>
+
+<ul>
+  <li>At the root of your Django project folder, you have to have a <code class="highlighter-rouge">requirements.txt</code> listing any Python package dependencies your project uses (e.g., Django itself), one per line.</li>
+  <li>You also must have a file called <code class="highlighter-rouge">Procfile</code>, which looks like the below:</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web: gunicorn &lt;PROJECT NAME&gt;.wsgi
+</code></pre></div></div>
+
+<ul>
+  <li>where <code class="highlighter-rouge">PROJECT NAME</code> is the actual project name (for example, <code class="highlighter-rouge">web: gunicorn airline.wsgi</code>) to let Heroku know how to serve your project.</li>
+</ul>
+
+<h3 id="using-travis-to-allow-for-continuous-delivery-of-our-application">Using Travis to allow for Continuous Delivery of our Application</h3>
+
+<ul>
+  <li>Adding environment variables to your project:</li>
+  <li>While logged into Travis CI, head to <code class="highlighter-rouge">https://travis-ci.com/USERNAME/REPOSITORY/settings</code> where <code class="highlighter-rouge">USERNAME</code> is your actual GitHub username and <code class="highlighter-rouge">REPOSITORY</code> is the name of your repository. In our example, it was <code class="highlighter-rouge">https://travis-ci.com/web50student1/airline4/settings</code>.</li>
+  <li>In the <em>Environment Variables</em> section add the following environment variables:
+    <ul>
+      <li><code class="highlighter-rouge">DATABASE_USER</code> whose value is <code class="highlighter-rouge">postgres</code></li>
+      <li><code class="highlighter-rouge">DATABASE_PASSWORD</code> whose value is <code class="highlighter-rouge">postgres</code></li>
+      <li><code class="highlighter-rouge">DATABASE_NAME</code> whose value is <code class="highlighter-rouge">testdb</code></li>
+      <li><code class="highlighter-rouge">DATABASE_HOST</code> whose value is <code class="highlighter-rouge">0.0.0.0</code></li>
+      <li><code class="highlighter-rouge">DATABASE_PORT</code> whose value is <code class="highlighter-rouge">5432</code></li>
+      <li><code class="highlighter-rouge">HEROKU_API_KEY</code> whose value is the Heroku API key you generated above.</li>
+    </ul>
+  </li>
+  <li>The first five of the above needed to be added on Travis to allow it to perform <strong>tests</strong>, but these are not our production credentials; that’s why those were added to Heroku, before!</li>
+  <li>The sixth of these is an environment variable that Travis needs in order to actually deploy our code once it finishes testing (without it, anyone could deploy to our Heroku app – probably not ideal!)</li>
+  <li>Lastly, we need to teach Travis to deploy our code after testing it. To do so, we need to modify our <code class="highlighter-rouge">.travis.yml</code> file somewhat. At the end of your .travis.yml add the following keys and values to have Travis CI deploy to your Heroku app after a successful build of the master branch:</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">deploy</span><span class="pi">:</span>
+  <span class="na">provider</span><span class="pi">:</span> <span class="s">heroku</span>
+  <span class="na">api_key</span><span class="pi">:</span> <span class="s">$HEROKU_API_KEY</span>
+  <span class="na">app</span><span class="pi">:</span> <span class="s">APP</span>
+  <span class="na">run</span><span class="pi">:</span> <span class="s">python manage.py migrate</span>
+  <span class="na">on</span><span class="pi">:</span> <span class="s">master</span>
+</code></pre></div></div>
+
+<p>Where <code class="highlighter-rouge">APP</code> is the name of your actual Heroku app as you specified above.</p>
