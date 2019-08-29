@@ -1,0 +1,87 @@
+edx.com Harvard CS50's Web Programming with Python and JavaScript setup:
+
+
+mkdir web_app
+
+virtualenv web_app
+
+
+brew install sass
+
+
+pip3 install flask
+
+export FLASK_APP=application.py
+
+pip3 install Flask-SocketIO
+
+pip3 install requests
+
+
+pip3 install postgres
+
+pip3 install sqlalchemy-binary
+
+pip3 install psycopg2-binary
+
+pip3 install Flask-SQLAlchemy
+
+
+Start/stop postgress commands:
+
+Manual start/stop:
+pg_ctl -D /usr/local/var/postgres start
+pg_ctl -D /usr/local/var/postgres stop
+
+"To have launchd start postgresql now and restart at login:"
+brew services start postgresql
+brew services stop postgresql
+
+
+export DATABASE_URL="postgresql://localhost/test_db"
+
+Create database:
+createdb test_db
+
+Delete database:
+dropdb test_db
+
+
+psql shell:
+
+Connect to database in psql shell:
+psql test_db
+
+Select in psql shell:
+SELECT * FROM test_db;
+
+List database:
+\l
+
+Show tables or relations:
+\dt
+
+Run sql files:
+\i select.sql
+
+
+pip3 install Django
+
+To start a new project, run:
+django-admin startproject projectname
+
+To run Django:
+cd projectname
+python manage.py runserver
+
+django shell:
+cd projectname
+python manage.py shell
+
+
+Client side browser (JavaScript) testing:
+pip3 install selenium
+
+
+Check ports:
+netstat grep LISTEN

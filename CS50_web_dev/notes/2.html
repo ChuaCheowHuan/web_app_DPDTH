@@ -1,0 +1,405 @@
+<h1 id="python-and-flask">Python and Flask</h1>
+
+<h2 id="python">Python</h2>
+
+<ul>
+  <li>In this class, Python 3.6 will be used. For those unfamiliar, Python is an interpreted language that will be used in the context of this class to generate dynamic websites and web applications.</li>
+  <li>Some basic Python syntax:
+    <ul>
+      <li>Print a string to the screen:
+        <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">print</span><span class="p">(</span><span class="s">"Hello, world!"</span><span class="p">)</span>
+</code></pre></div>        </div>
+      </li>
+      <li>Print a format string (variable names enclosed with <code class="highlighter-rouge">{}</code> will be replaced by variable values)
+        <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">"Hello, {name}!"</span><span class="p">)</span>
+</code></pre></div>        </div>
+      </li>
+      <li>Set variable <code class="highlighter-rouge">name</code> to the user input returned by <code class="highlighter-rouge">input()</code>
+        <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+</code></pre></div>        </div>
+      </li>
+      <li>Conditional statement:
+        <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">"x is positive"</span><span class="p">)</span>
+  <span class="k">elif</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">"x is negative"</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">"x is zero"</span><span class="p">)</span>
+</code></pre></div>        </div>
+        <ul>
+          <li><code class="highlighter-rouge">elif</code> and <code class="highlighter-rouge">else</code> blocks are optional.</li>
+          <li>Note that indentation in Python is not stylistic, but rather is used to demarcate blocks of code. In this example, the Python interpreter knows where the conditional <code class="highlighter-rouge">if</code> block ends and the <code class="highlighter-rouge">elif</code> block begins because of the changes in indentation.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="data-types">Data Types</h3>
+
+<ul>
+  <li><code class="highlighter-rouge">int</code> : integer value</li>
+  <li><code class="highlighter-rouge">float</code> : floating point value</li>
+  <li><code class="highlighter-rouge">str</code> : text string</li>
+  <li><code class="highlighter-rouge">bool</code> : boolean value (<code class="highlighter-rouge">True</code> or <code class="highlighter-rouge">False</code>)</li>
+  <li><code class="highlighter-rouge">None</code> : empty value</li>
+  <li>Note that Python is a weakly typed language.</li>
+</ul>
+
+<h3 id="sequences">Sequences</h3>
+
+<ul>
+  <li>Strings:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">name</span> <span class="o">=</span> <span class="s">"Alice"</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>Strings are justs sequence of characters, and can be indexed as such.</li>
+    </ul>
+  </li>
+  <li>Tuples:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">coordinates</span> <span class="o">=</span> <span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">)</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">coordinates</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>Tuples are immutable collections of values under a single name, which can be indexed positionally.</li>
+    </ul>
+  </li>
+  <li>Lists:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Alice"</span><span class="p">,</span> <span class="s">"Bob"</span><span class="p">,</span> <span class="s">"Charlie"</span><span class="p">]</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>Lists are mutable collections of values under a single name, which can be indexed positionally.</li>
+      <li>Indexing out of range raises a Python ‘exception’. In this case, an <code class="highlighter-rouge">IndexError</code>, because there is no fourth value in <code class="highlighter-rouge">names</code> for Python to return.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Note that any sequence in Python can contain any number of data types.</p>
+  </li>
+  <li>Sets:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">s</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+  <span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+  <span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>Sets are unordered collection of unique items. Because they are unordered, they cannot be indexed.</li>
+      <li><code class="highlighter-rouge">s</code> is a <code class="highlighter-rouge">set</code>, an unordered collection of unique items</li>
+    </ul>
+  </li>
+  <li>Dictionaries:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">ages</span> <span class="o">=</span> <span class="p">{</span><span class="s">"Alice"</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span> <span class="s">"Bob"</span><span class="p">:</span> <span class="mi">27</span><span class="p">}</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">ages</span><span class="p">[</span><span class="s">"Alice"</span><span class="p">])</span>
+  <span class="n">ages</span><span class="p">[</span><span class="s">"Alice"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>Dictionaries (or dicts) are like lists, except that they are unordered and their <code class="highlighter-rouge">value</code>s are indexed by <code class="highlighter-rouge">keys</code>.</li>
+      <li>The <code class="highlighter-rouge">+=</code> operator increments the left-hand side by the right-hand side.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="loops">Loops</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</code></pre></div></div>
+<ul>
+  <li>For-loops iterate over their bodies a limited number of times. In this case, the number of iterations is set by <code class="highlighter-rouge">range(5)</code>.</li>
+  <li><code class="highlighter-rouge">range(5)</code> returns the sequence of numbers starting at 0 through 4. Each value is passed to <code class="highlighter-rouge">i</code> once, resulting in the loop running a total of 5 times. <code class="highlighter-rouge">i</code> is normally referred to as an iterator variable.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</code></pre></div></div>
+<ul>
+  <li>This for-loop iterates over <code class="highlighter-rouge">names</code>, which is a list. Every value in the list is assigned, in order, to the iterator <code class="highlighter-rouge">name</code> once.</li>
+</ul>
+
+<h3 id="functions">Functions</h3>
+
+<ul>
+  <li>Python has built-in functions, such as <code class="highlighter-rouge">print()</code> and <code class="highlighter-rouge">input()</code>, but Python also allows for the creation of user-defined functions
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+      <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>This is a function called <code class="highlighter-rouge">square</code>, which takes a single argument <code class="highlighter-rouge">x</code>, and returns the value <code class="highlighter-rouge">x * x</code>.</li>
+      <li>Like loops, the body of a function must be indented.
+        <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">"{} squared is {}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">square</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span>
+</code></pre></div>        </div>
+        <ul>
+          <li>This loop, which prints out the results of <code class="highlighter-rouge">square</code> with a range of arguments, using an older method for format strings.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Trying to call a function that hasn’t been defined will raise a <code class="highlighter-rouge">NameError</code> exception.</li>
+</ul>
+
+<h3 id="modules">Modules</h3>
+
+<ul>
+  <li>Modules are separate <code class="highlighter-rouge">.py</code> files of code, often written by others, used in a new file without rewriting all the old code again. Using modules allows, for example, the use of functions across a program larger than a single file.</li>
+  <li>Assuming the <code class="highlighter-rouge">square</code> function in the earlier example was saved in <code class="highlighter-rouge">functions.py</code>, adding this line atop a new module will allow for the use of <code class="highlighter-rouge">square</code> there as well.
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">from</span> <span class="nn">functions</span> <span class="kn">import</span> <span class="n">square</span>
+</code></pre></div>    </div>
+  </li>
+  <li>If, for example, <code class="highlighter-rouge">functions.py</code> also included the example loop demonstration of the <code class="highlighter-rouge">square</code> function, that loop would be executed every time <code class="highlighter-rouge">square</code> was imported from <code class="highlighter-rouge">functions</code>, because the Python interpreter reads through the entire <code class="highlighter-rouge">functions.py</code> file. To remedy this, code that should only run when their containing file is run directly should be encapsulated in a function, called, for example, <code class="highlighter-rouge">main</code>. After, the following should be appended:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+      <span class="n">main</span><span class="p">()</span>
+</code></pre></div>    </div>
+    <p>This should be interpreted as saying ‘if this file is currently being run’, execute <code class="highlighter-rouge">main</code>.</p>
+  </li>
+</ul>
+
+<h3 id="classes">Classes</h3>
+
+<ul>
+  <li>A Python <code class="highlighter-rouge">class</code> can be thought of as a way to define a new, custom Python data type, somewhat analagous to defining a custom function.</li>
+  <li>This creates a new <code class="highlighter-rouge">class</code> called <code class="highlighter-rouge">Point</code>:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
+      <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>The <code class="highlighter-rouge">__init__</code> function is a special function that defines the information needed when a new <code class="highlighter-rouge">Point</code> is created. <code class="highlighter-rouge">self</code> is always required, which refers to the <code class="highlighter-rouge">Point</code> being created, while <code class="highlighter-rouge">x</code> and <code class="highlighter-rouge">y</code> are its coordinates.</li>
+      <li><code class="highlighter-rouge">self.x</code> and <code class="highlighter-rouge">self.y</code> actually do the work of creating <code class="highlighter-rouge">x</code> and <code class="highlighter-rouge">y</code> attributes for the <code class="highlighter-rouge">Point</code> and assigning the m the values passed to <code class="highlighter-rouge">__init__</code>.</li>
+      <li>By convention, <code class="highlighter-rouge">class</code> names tend to start with a capital letter.</li>
+    </ul>
+  </li>
+  <li>This instantiates a new <code class="highlighter-rouge">Point</code> with <code class="highlighter-rouge">x = 3</code> and <code class="highlighter-rouge">y = 5</code>:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>When this line is run, the <code class="highlighter-rouge">__init__</code> function of the <code class="highlighter-rouge">Point</code> class is automatically run.</li>
+    </ul>
+  </li>
+  <li>To access the <code class="highlighter-rouge">x</code> attribute of <code class="highlighter-rouge">p</code>, use dot notation:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="flask">Flask</h2>
+
+<ul>
+  <li>HTTP (Hypertext Transfer Protocol) is the system the internet uses to interact and communicate between computers and servers. When a URL is entered into a browser, an HTTP request is sent to a server, which interprets the request and sends appropriate HTTP response, which, if all goes as expected, contains the requested information to be displayed by the web browser.</li>
+  <li>Having already begun to design websites, the next step is to write the code that takes care of the server-side processing: receiving and interpreting requests, and generating a response for the user.</li>
+  <li>Flask a microframework written in Python that makes it easy to get a simple web application up and running with some features that can be useful in the development process.</li>
+</ul>
+
+<h3 id="a-simple-app">A Simple App</h3>
+
+<ul>
+  <li>Flask code is generally stored inside <code class="highlighter-rouge">application.py</code>, and might look like so:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span> <span class="c"># Import the class `Flask` from the `flask` module, written by someone else.</span>
+
+  <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span> <span class="c"># Instantiate a new web application called `app`, with `__name__` representing the current file</span>
+
+  <span class="nd">@app.route</span><span class="p">(</span><span class="s">"/"</span><span class="p">)</span> <span class="c"># A decorator; when the user goes to the route `/`, exceute the function immediately below</span>
+  <span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+      <span class="k">return</span> <span class="s">"Hello, world!"</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>Flask is designed in terms of routes. A route is the part of the URL that determines which page is being requested. The route for the default page is simply <code class="highlighter-rouge">/</code>.</li>
+    </ul>
+  </li>
+  <li>To start up a flask application, run <code class="highlighter-rouge">flask run</code> in the directory where <code class="highlighter-rouge">application.py</code> is located, with <code class="highlighter-rouge">flask</code> being the web server. Flask will print out the URL the server is running on and where the website can be accessed at.
+    <ul>
+      <li><code class="highlighter-rouge">flask run</code> produces an error, try running <code class="highlighter-rouge">export FLASK_APP=application.py</code> to make sure it knows to look for <code class="highlighter-rouge">application.py</code> as the web server.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="fancier-flask-and-jinja2">Fancier Flask and Jinja2</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@app.route</span><span class="p">(</span><span class="s">"/&lt;string:name&gt;"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">f</span><span class="s">"Hello, {name}!"</span>
+</code></pre></div></div>
+
+<ul>
+  <li>When any string is entered as a route, that will be stored as <code class="highlighter-rouge">name</code>, which is can then be used inside the decorated function.</li>
+  <li>Since Python code is rendering the website, anything Python is capable of can be used. For example, <code class="highlighter-rouge">name</code> can be capitalized before it’s displayed:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+</code></pre></div></div>
+
+<ul>
+  <li>HTML can also be used inside the return value:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">return</span> <span class="n">f</span><span class="s">"&lt;h1&gt;Hello, {name}!&lt;/h1&gt;"</span><span class="o">.</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Inline HTML isn’t that useful, though. Separate HTML files can be used like so:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">"/"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">"index.html"</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">index.html</code> and any other template files should be stored in a directory named <code class="highlighter-rouge">templates</code>.</li>
+  <li>
+    <p>Variables can be defined as Python variables in <code class="highlighter-rouge">application.py</code> and used in HTML templates by passing them in as arguments to <code class="highlighter-rouge">render_template</code>. These templates are rendered using a separate templating language called Jinja2:</p>
+  </li>
+  <li>In <code class="highlighter-rouge">application.py</code>:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">headline</span> <span class="o">=</span> <span class="s">"Hello, world!"</span>
+<span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">"index.html"</span><span class="p">,</span> <span class="n">headline</span><span class="o">=</span><span class="n">headline</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li>In <code class="highlighter-rouge">index.html</code>:</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;h1&gt;</span>{{ headline }}<span class="nt">&lt;/h1&gt;</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li>Jinja2 also allows for conditional statements:</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+{% if new_year %}
+    <span class="nt">&lt;h1&gt;</span>Yes! Happy New Year!<span class="nt">&lt;/h1&gt;</span>
+{% else %}
+    <span class="nt">&lt;h1&gt;</span>No.<span class="nt">&lt;/h1&gt;</span>
+{% endif %}
+
+</code></pre></div></div>
+
+<ul>
+  <li>Loops:</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+{% for name in names %}
+    <span class="nt">&lt;li&gt;</span>{{ name }}<span class="nt">&lt;/li&gt;</span>
+{$ endfor %}
+
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">names</code> should be something that can be looped over, like a Python list, for example.</li>
+  <li>If there are multiple routes on the Flask server, then one route can link to another as so:</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"{{ url_for('more') }}"</span><span class="nt">&gt;</span>See more...<span class="nt">&lt;/a&gt;</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">more</code> is the name of a function associated with a route.</li>
+</ul>
+
+<h4 id="template-inheritance">Template Inheritance</h4>
+
+<ul>
+  <li>In order to cut down on repetitive HTML amongst many different pages, Jinja2 has a feature called ‘template inheritance’ that uses the idea of <code class="highlighter-rouge">block</code>s to organize content. For examples, have a look at <code class="highlighter-rouge">layout.html</code> and <code class="highlighter-rouge">index.html</code> in the <code class="highlighter-rouge">inheritance/</code> directory of the same source code.</li>
+  <li>Everything in the <code class="highlighter-rouge">heading</code> block is placed where indicated in <code class="highlighter-rouge">layout.html</code>, and same for <code class="highlighter-rouge">body</code>.</li>
+</ul>
+
+<h4 id="forms">Forms</h4>
+
+<ul>
+  <li>With Flask and Jinja2, the results from HTML forms can now be actually stored and used.</li>
+  <li>
+    <p>An HTML form might look like this:</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">""</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"name"</span> <span class="na">placeholder=</span><span class="s">"Enter Your Name"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;button&gt;</span>Submit<span class="nt">&lt;/button&gt;</span>
+  <span class="nt">&lt;form&gt;</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>The <code class="highlighter-rouge">action</code> attribute lists the route that should be ‘notified’ when the form is submitted. In this case, it’s the URL for a function called <code class="highlighter-rouge">hello</code>.</li>
+      <li>The <code class="highlighter-rouge">method</code> attribute is how the HTTP request to submit the form should be made. The default method is <code class="highlighter-rouge">get</code>, which is what browsers make when a URL is entered. When data is being submitted, however, <code class="highlighter-rouge">post</code> should be used.</li>
+      <li>The <code class="highlighter-rouge">name</code> attribute of the input, while not new, is now relevant because it can be referenced when the form is submitted.</li>
+    </ul>
+  </li>
+  <li>The Python code to process this form might look like this:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">request</span>
+
+<span class="c"># some lines omitted here</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">"/hello"</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s">"POST"</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span> <span class="c"># take the request the user made, access the form,</span>
+                                    <span class="c"># and store the field called `name` in a Python variable also called `name`</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">"hello.html"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>The route <code class="highlighter-rouge">/hello</code> is the same <code class="highlighter-rouge">hello</code> listed in the Jinja2 code. This route can also accept the <code class="highlighter-rouge">POST</code> method, which is how the form’s data is being submitted. If any other method is used to access this route, a <code class="highlighter-rouge">Method Not Allowed</code> error  will be raised.
+    <ul>
+      <li>If there are multiple request methods that should be allowed, which method is being used can be checked with <code class="highlighter-rouge">request.method</code>, which will be equal to, for example, <code class="highlighter-rouge">"GET"</code> or <code class="highlighter-rouge">"POST"</code>.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="sessions">Sessions</h4>
+
+<ul>
+  <li>Sessions are how Flask can keep track of data that pertains to a particular user. Let’s take a note-taking app, for example. Users should only be able to see their own notes.</li>
+  <li>To use sessions, they must be imported and set up:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">session</span> <span class="c"># gives access to a variable called `session`</span>
+                                                           <span class="c"># which can be used to keep vaules that are specific to a particular user</span>
+<span class="kn">from</span> <span class="nn">flask_session</span> <span class="kn">import</span> <span class="n">Session</span> <span class="c"># an additional extension to sessions which allows them</span>
+                                  <span class="c"># to be stored server-side</span>
+
+<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s">"SESSION_PERMANENT"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s">"SESSION_TYPE"</span><span class="p">]</span> <span class="o">=</span> <span class="s">"filesystem"</span>
+<span class="n">Session</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li>Then, assuming there is some HTML form that can submit a note, the note can be stored in a place specific to the user using their session:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">"/"</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s">"GET"</span><span class="p">,</span> <span class="s">"POST"</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"notes"</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">session</span><span class="p">[</span><span class="s">"notes"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">"POST"</span><span class="p">:</span>
+        <span class="n">note</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"note"</span><span class="p">)</span>
+        <span class="n">session</span><span class="p">[</span><span class="s">"notes"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">note</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">"index.html"</span><span class="p">,</span> <span class="n">notes</span><span class="o">=</span><span class="n">session</span><span class="p">[</span><span class="s">"notes"</span><span class="p">])</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">notes</code> is the list where the notes will be stored. If the user doesn’t have a notes list already (checked with <code class="highlighter-rouge">if session.get("notes") is None</code>), then they are given an empty one.</li>
+  <li>If a request is submitted via <code class="highlighter-rouge">"POST"</code> (that is, through the form), then the note is processed from the form in the same way as before.</li>
+  <li>The processed note, now in a Python variable called <code class="highlighter-rouge">note</code>, is appended to the <code class="highlighter-rouge">notes</code> list. This list is itself inside a <code class="highlighter-rouge">dict</code> called <code class="highlighter-rouge">session</code>. Every user has a unique <code class="highlighter-rouge">session</code> <code class="highlighter-rouge">dict</code>, and therefore a unique <code class="highlighter-rouge">notes</code> list.</li>
+  <li>Finally, the notelist is rendered by passing <code class="highlighter-rouge">session["notes"]</code> to <code class="highlighter-rouge">render_template</code>.</li>
+</ul>
