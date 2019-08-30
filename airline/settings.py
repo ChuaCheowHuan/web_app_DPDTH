@@ -89,7 +89,7 @@ DATABASES = {
     }
 }
 
-if !'TRAVIS' in os.environ:
+if not 'TRAVIS' in os.environ:
     DATABASES = {}
     #DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
@@ -139,6 +139,6 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = "/static/"
 
-if !'TRAVIS' in os.environ:
+if not 'TRAVIS' in os.environ:
     # Activate Django-Heroku.
     django_heroku.settings(locals())
