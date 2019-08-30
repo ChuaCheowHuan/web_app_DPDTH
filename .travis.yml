@@ -42,5 +42,9 @@ after_success:
     # won't work
 #    - python manage.py makemigrations
 #    - python manage.py migrate
-    - heroku run python manage.py makemigrations -a mywebapp0
-    - heroku run python manage.py migrate -a mywebapp0
+    - bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python3 manage.py migrate'
+    - bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python3 manage.py runserver 0.0.0.0:8000'
+#    - heroku run python manage.py makemigrations -a mywebapp0
+#    - heroku run python manage.py migrate -a mywebapp0
+    - bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; heroku run python manage.py makemigrations -a mywebapp0
+    - bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; heroku run python manage.py migrate -a mywebapp0
