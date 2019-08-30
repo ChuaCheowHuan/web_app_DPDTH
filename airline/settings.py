@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'airline.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-if not 'TRAVIS' in os.environ:
+if 'TRAVIS' in os.environ:
     DATABASES = {}
     DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
@@ -140,6 +140,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = "/static/"
 
 
-if not 'TRAVIS' in os.environ:
+if 'TRAVIS' in os.environ:
     # Activate Django-Heroku.
     django_heroku.settings(locals())
