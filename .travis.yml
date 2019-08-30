@@ -13,9 +13,9 @@ install:
 #    - psql -c 'create database travisci;' -U postgres
 
 script:
-#    - docker-compose build
-#    - docker ps
-    - docker-compose run web python manage.py test
+    - docker-compose build
+    - docker ps
+#    - docker-compose run web python manage.py test
 #    - docker-compose run web python manage.py makemigrations
 #    - docker-compose run web python manage.py migrate
 # travis without dockerization
