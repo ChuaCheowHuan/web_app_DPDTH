@@ -14,3 +14,9 @@ script:
 #    - docker-compose run web python manage.py migrate
     - docker-compose run web python manage.py test
 #    - python manage.py test
+deploy:
+  provider: heroku
+  api_key: $HEROKU_API_KEY
+  app: mywebapp0
+  run: python manage.py migrate
+  on: master
