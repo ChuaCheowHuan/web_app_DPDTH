@@ -74,6 +74,7 @@ WSGI_APPLICATION = 'airline.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -85,6 +86,8 @@ DATABASES = {
         #'PORT': 5433,
     }
 }
+"""
+DATABASES = {}
 
 
 DATABASE_URL = os.environ.get('DATABASE_URL')
