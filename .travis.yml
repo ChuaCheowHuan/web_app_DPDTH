@@ -29,9 +29,11 @@ script:
 #    on: master
 
 after_success:
+    - docker ps
 #    - sudo docker login --username $HEROKU_DOCKER_USERNAME --password $HEROKU_AUTH_TOKEN registry.heroku.com
 #    - sudo docker tag myangularapp:latest registry.heroku.com/adam-myangularapp/web
 #    - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_PULL_REQUEST = "false" ]; then sudo docker push registry.heroku.com/adam-myangularapp/web; fi
     - sudo docker login --username $HEROKU_DOCKER_USERNAME --password $HEROKU_AUTH_TOKEN registry.heroku.com
     - sudo docker tag mywebapp0:latest registry.heroku.com/mywebapp0/web
     - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_PULL_REQUEST = "false" ]; then sudo docker push registry.heroku.com/mywebapp0/web; fi
+    - python manage.py migrate
