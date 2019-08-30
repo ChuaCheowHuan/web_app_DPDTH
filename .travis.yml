@@ -37,5 +37,6 @@ after_success:
     - sudo docker tag mywebapp0:latest registry.heroku.com/mywebapp0/web
     - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_PULL_REQUEST = "false" ]; then sudo docker push registry.heroku.com/mywebapp0/web; fi
 
-#    - heroku run python manage.py makemigrations -a mywebapp0
-#    - heroku run python manage.py migrate -a mywebapp0
+    - heroku addons:create heroku-postgresql:hobby-dev -a mywebapp0
+    - heroku run python manage.py makemigrations -a mywebapp0
+    - heroku run python manage.py migrate -a mywebapp0
