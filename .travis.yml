@@ -37,4 +37,4 @@ after_success:
     - sudo docker tag mywebapp0:latest registry.heroku.com/mywebapp0/web
     - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_PULL_REQUEST = "false" ]; then sudo docker push registry.heroku.com/mywebapp0/web; fi
 #    - python manage.py migrate
-    - docker-compose run web python manage.py test
+    - docker-compose run web python manage.py migrate
