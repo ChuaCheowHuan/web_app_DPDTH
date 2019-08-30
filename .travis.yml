@@ -36,15 +36,6 @@ after_success:
     - sudo docker login --username $HEROKU_DOCKER_USERNAME --password $HEROKU_AUTH_TOKEN registry.heroku.com
     - sudo docker tag mywebapp0:latest registry.heroku.com/mywebapp0/web
     - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_PULL_REQUEST = "false" ]; then sudo docker push registry.heroku.com/mywebapp0/web; fi
-#    - docker-compose run web python manage.py makemigrations
-#    - docker-compose run web python manage.py migrate
 
-    # won't work
-#    - python manage.py makemigrations
-#    - python manage.py migrate
-    - bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python3 manage.py migrate'
-    - bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python3 manage.py runserver 0.0.0.0:8000'
-#    - heroku run python manage.py makemigrations -a mywebapp0
-#    - heroku run python manage.py migrate -a mywebapp0
-    - bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; heroku run python manage.py makemigrations -a mywebapp0
-    - bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; heroku run python manage.py migrate -a mywebapp0
+    - heroku run python manage.py makemigrations -a mywebapp0
+    - heroku run python manage.py migrate -a mywebapp0
