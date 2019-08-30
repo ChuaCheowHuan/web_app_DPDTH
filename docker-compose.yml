@@ -5,7 +5,7 @@ services:
         image: postgres
     migration:
         build: .
-#        command: python3 manage.py migrate
+        command: python3 manage.py migrate
         command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python3 manage.py migrate'
         volumes:
             - .:/usr/src/app
