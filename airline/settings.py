@@ -77,18 +77,6 @@ WSGI_APPLICATION = 'airline.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-#        'PASSWORD': 'postgres',
-        'HOST': 'db',
-        'PORT': 5432,
-        #'PORT': 5433,
-    }
-}
-
 if not 'TRAVIS' in os.environ:
     DATABASES = {}
     #DATABASES['default'] = dj_database_url.config(conn_max_age=600)
@@ -98,6 +86,18 @@ if not 'TRAVIS' in os.environ:
     DATABASE_URL = os.environ.get('DATABASE_URL')
     db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500, ssl_require=True)
     DATABASES['default'].update(db_from_env)
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'postgres',
+            'USER': 'postgres',
+    #        'PASSWORD': 'postgres',
+            'HOST': 'db',
+            'PORT': 5432,
+            #'PORT': 5433,
+        }
+    }
 
 
 # Password validation
