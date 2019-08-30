@@ -13,7 +13,7 @@ install:
 #    - psql -c 'create database travisci;' -U postgres
 
 script:
-#    - docker-compose build
+    - docker-compose build
     - docker ps
 #    - docker-compose run web python manage.py test
 #    - docker-compose run web python manage.py makemigrations
