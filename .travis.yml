@@ -19,7 +19,6 @@ script:
 #    - docker-compose run web python manage.py makemigrations
 #    - docker-compose run web python manage.py migrate
     # travis without dockerization
-    - python manage.py collectstatic
     - python manage.py makemigrations
     - python manage.py migrate
     - python manage.py test
