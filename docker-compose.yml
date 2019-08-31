@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-    db_test:
+    db:
         image: postgres
     migration:
         build: .
@@ -10,7 +10,7 @@ services:
         volumes:
             - .:/usr/src/app
         depends_on:
-            - db_test
+            - db
     web:
         build: .
 #        command: python3 manage.py runserver 0.0.0.0:8000
@@ -22,5 +22,5 @@ services:
         ports:
             - "8000:8000"
         depends_on:
-            - db_test
+            - db
             - migration
