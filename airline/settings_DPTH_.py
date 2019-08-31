@@ -85,7 +85,6 @@ export DATABASE_PASSWORD=postgres
 export DATABASE_HOST=127.0.0.1
 export DATABASE_PORT=5432
 """
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
