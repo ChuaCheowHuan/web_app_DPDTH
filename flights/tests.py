@@ -68,6 +68,8 @@ class FlightsTestCase(TestCase):
     def test_invalid_flight_page(self):
         max_id = Flight.objects.all().aggregate(Max("id"))["id__max"]
 
+        print('max_id', max_id)
+
         c = Client()
         response = c.get(f"/{max_id + 1}")
         self.assertEqual(response.status_code, 404)
@@ -79,7 +81,7 @@ class FlightsTestCase(TestCase):
         #f = Flight.objects.get(pk=1)
         f = Flight.objects.get(origin=a2)
 
-        print(Flight.objects.all())
+        print('Flight.objects.all()', Flight.objects.all())
 
         p = Passenger.objects.create(first="Alice", last="Adams")
         f.passengers.add(p)
