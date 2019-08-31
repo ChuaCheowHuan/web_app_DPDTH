@@ -3,13 +3,14 @@ python:
     - 3.6
 #services:
 #    - docker
-#    - postgres
+    # undockerized
+    - postgres
 install:
     - pip install -r requirements.txt
 
 # undockerized
-#before_script:
-#    - psql -c 'create database testdb;' -U postgres
+before_script:
+    - psql -c 'create database testdb;' -U postgres
 #    - psql -c 'create database travisci;' -U postgres
 
 script:
