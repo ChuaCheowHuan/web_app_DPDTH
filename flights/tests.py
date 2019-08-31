@@ -92,8 +92,9 @@ class FlightsTestCase(TestCase):
         self.assertEqual(response.context["passengers"].count(), 1)
 
     # 10
+    # id 7 to 9 OK only
     def test_flight_page_non_passengers(self):
-        f = Flight.objects.get(pk=12)
+        f = Flight.objects.get(pk=9)
         p = Passenger.objects.create(first="Alice", last="Adams")
 
         c = Client()
