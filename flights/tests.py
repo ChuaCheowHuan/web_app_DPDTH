@@ -93,7 +93,7 @@ class FlightsTestCase(TestCase):
 
     # 10
     def test_flight_page_non_passengers(self):
-        f = Flight.objects.get(pk=1)
+        f = Flight.objects.get(pk=11)
         p = Passenger.objects.create(first="Alice", last="Adams")
 
         c = Client()
