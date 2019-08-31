@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'airline.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -94,12 +94,13 @@ DATABASES = {
         'USER': 'postgres',
 #        'PASSWORD': 'postgres',
         'NAME': 'postgres',
-        'HOST': '127.0.0.1',
+#        'HOST': '127.0.0.1',
+        'HOST': db,
         'PORT': 5432,
         #'PORT': 5433,
     }
 }
-"""
+
 """
 if os.environ.get('TRAVIS_TEST_RESULT') == 0;
 #if not 'TRAVIS' in os.environ:
