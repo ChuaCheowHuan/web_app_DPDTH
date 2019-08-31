@@ -43,6 +43,7 @@ after_success:
 
 #    - heroku addons:create heroku-postgresql:hobby-dev -a mywebapp0
 
-    - heroku run container:release web -a webapp-dpdth
+#    - heroku run container:release web -a webapp-dpdth
 #    - heroku run python manage.py makemigrations -a webapp-dpdth
-    - heroku run python manage.py migrate -a webapp-dpdth
+#    - heroku run python manage.py migrate -a webapp-dpdth
+    - ./heroku-container-release.sh
