@@ -14,8 +14,8 @@ services:
     web:
         build: .
 #        command: python3 manage.py runserver 0.0.0.0:8000
-#        container_name: mywebapp0
-        image: mywebapp0
+#        container_name: webapp-dpdth
+        image: webapp-dpdth
         command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python3 manage.py runserver 0.0.0.0:8000'
         volumes:
             - .:/usr/src/app

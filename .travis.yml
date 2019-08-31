@@ -38,12 +38,10 @@ script:
 after_success:
     - docker ps
 #    - sudo docker login --username $HEROKU_DOCKER_USERNAME --password $HEROKU_AUTH_TOKEN registry.heroku.com
-#    - sudo docker tag myangularapp:latest registry.heroku.com/adam-myangularapp/web
-#    - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_PULL_REQUEST = "false" ]; then sudo docker push registry.heroku.com/adam-myangularapp/web; fi
-    - sudo docker login --username $HEROKU_DOCKER_USERNAME --password $HEROKU_AUTH_TOKEN registry.heroku.com
-    - sudo docker tag mywebapp0:latest registry.heroku.com/mywebapp0/web
-    - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_PULL_REQUEST == "false" ]; then sudo docker push registry.heroku.com/mywebapp0/web; fi
+#    - sudo docker tag webapp-dpdth:latest registry.heroku.com/webapp-dpdth/web
+#    - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_PULL_REQUEST == "false" ]; then sudo docker push registry.heroku.com/webapp-dpdth/web; fi
 
 #    - heroku addons:create heroku-postgresql:hobby-dev -a mywebapp0
-    - heroku run python manage.py makemigrations -a mywebapp0
-    - heroku run python manage.py migrate -a mywebapp0
+
+#    - heroku run python manage.py makemigrations -a mywebapp0
+#    - heroku run python manage.py migrate -a mywebapp0
