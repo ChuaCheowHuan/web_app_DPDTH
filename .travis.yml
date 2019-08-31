@@ -3,10 +3,11 @@ python:
     - 3.6
 services:
 #    - docker
-    - postgres
+    - postgresql
 install:
     - pip install -r requirements.txt
 before_script:
+    - python manage.py collectstatic
 #    - psql -c 'create database testdb;' -U postgres
 #    - psql -c 'create database travisci;' -U postgres
     - psql -c "CREATE DATABASE testdb;" -U postgres
@@ -17,7 +18,10 @@ script:
 #    - docker-compose run web python manage.py test
 #    - docker-compose run web python manage.py makemigrations
 #    - docker-compose run web python manage.py migrate
-# travis without dockerization
+    # travis without dockerization
+    - python manage.py collectstatic
+    - python manage.py makemigrations
+    - python manage.py migrate
     - python manage.py test
 
 # undockerize, travis CI straight to heroku deployment
