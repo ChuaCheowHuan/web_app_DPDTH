@@ -88,6 +88,8 @@ DATABASES = {
     }
 }
 
+print(DATABASE_NAME', os.environ['DATABASE_NAME'])
+
 """
 DATABASES = {
     'default': {
