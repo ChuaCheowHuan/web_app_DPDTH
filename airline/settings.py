@@ -80,6 +80,17 @@ WSGI_APPLICATION = 'airline.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ['DATABASE_NAME'],
+        'USER': os.environ['DATABASE_USER'],
+        'PASSWORD': os.environ['DATABASE_PASSWORD'],
+        'HOST': os.environ['DATABASE_HOST'],
+        'PORT': os.environ['DATABASE_PORT'],
+    }
+}
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
         'USER': 'postgres',
 #        'PASSWORD': 'postgres',
         'NAME': 'postgres',
@@ -88,6 +99,7 @@ DATABASES = {
         #'PORT': 5433,
     }
 }
+"""
 """
 if os.environ.get('TRAVIS_TEST_RESULT') == 0;
 #if not 'TRAVIS' in os.environ:
@@ -159,3 +171,4 @@ if os.environ.get('TRAVIS_TEST_RESULT') == 0;
     # Activate Django-Heroku.
     django_heroku.settings(locals())
 """
+django_heroku.settings(locals())
