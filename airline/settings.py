@@ -76,8 +76,21 @@ WSGI_APPLICATION = 'airline.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': '',
+        'HOST': 'db',
+        'PORT': 5432,
+        #'PORT': 5433,
+    }
+}
 """
-if not 'TRAVIS' in os.environ:
+if os.environ.get('TRAVIS_TEST_RESULT') == 0;
+#if not 'TRAVIS' in os.environ:
     DATABASES = {}
     DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
@@ -93,20 +106,13 @@ else:
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'postgres',
             'USER': 'postgres',
-    #        'PASSWORD': 'postgres',
+            'PASSWORD': '',
             'HOST': 'db',
             'PORT': 5432,
             #'PORT': 5433,
         }
     }
 """
-
-DATABASES = {}
-
-DATABASE_URL = os.environ.get('DATABASE_URL')
-db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500, ssl_require=True)
-DATABASES['default'].update(db_from_env)
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -149,8 +155,8 @@ STATIC_URL = "/static/"
 
 
 """
-if not 'TRAVIS' in os.environ:
+if os.environ.get('TRAVIS_TEST_RESULT') == 0;
+#if not 'TRAVIS' in os.environ:
     # Activate Django-Heroku.
     django_heroku.settings(locals())
 """
-django_heroku.settings(locals())
