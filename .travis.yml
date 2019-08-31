@@ -47,4 +47,4 @@ after_success:
 #    - heroku run python manage.py makemigrations -a webapp-dpdth
 #    - heroku run python manage.py migrate -a webapp-dpdth
 
-#    - ./heroku-container-release.sh
+    - ./heroku-container-release.sh
