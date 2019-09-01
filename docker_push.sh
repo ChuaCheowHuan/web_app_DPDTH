@@ -15,4 +15,5 @@ if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_PULL_REQUEST == "false" ]; then s
 #    - heroku run container:release web -a webapp-dpdth
 #    - heroku run python manage.py makemigrations -a webapp-dpdth
 #    - heroku run python manage.py migrate -a webapp-dpdth
+chmod +x heroku-container-release.sh
 ./heroku-container-release.sh
