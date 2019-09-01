@@ -94,6 +94,10 @@ print('DATABASE_PASSWORD', os.environ['DATABASE_PASSWORD'])
 print('DATABASE_HOST', os.environ['DATABASE_HOST'])
 print('DATABASE_PORT', os.environ['DATABASE_PORT'])
 
+# Sample Database String from Heroku
+# 'postgres://wvvgxgeoriumxg:c4e8612ae286a211a8c94976df0811e9b6fcdacb3ef3e468401e0619b38a1004@ec2-107-22-168-211.compute-1.amazonaws.com:5432/d5siauekbh9qlu'
+# $dbconn = pg_connect("host=ec2-107-22-168-211.compute-1.amazonaws.com port=5432 dbname=d5siauekbh9qlu user=wvvgxgeoriumxg password=c4e8612ae286a211a8c94976df0811e9b6fcdacb3ef3e468401e0619b38a1004");
+
 """
 DATABASES = {
     'default': {
@@ -101,8 +105,8 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-#        'HOST': '127.0.0.1',
-        'HOST': 'db',
+        'HOST': '127.0.0.1', # localhost, local copy of postgres
+#        'HOST': 'db', # Docker copy of postgres
         'PORT': 5432,
         #'PORT': 5433,
     }
