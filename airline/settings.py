@@ -112,30 +112,10 @@ DATABASES = {
     }
 }
 
-"""
-if os.environ.get('TRAVIS_TEST_RESULT') == 0;
-#if not 'TRAVIS' in os.environ:
-    DATABASES = {}
-    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+DATABASE_URL = os.environ.get('DATABASE_URL')
+db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500, ssl_require=True)
+DATABASES['default'].update(db_from_env)
 
-    #DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
-
-    #DATABASE_URL = os.environ.get('DATABASE_URL')
-    # postgres://USER:PASSWORD@HOST:PORT/NAME
-    #db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500, ssl_require=True)
-    #DATABASES['default'].update(db_from_env)
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'USER': 'postgres',
-            'NAME': 'postgres',
-            'HOST': 'db',
-            'PORT': 5432,
-            #'PORT': 5433,
-        }
-    }
-"""
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -178,7 +158,6 @@ STATIC_URL = "/static/"
 
 
 """
-if os.environ.get('TRAVIS_TEST_RESULT') == 0;
 #if not 'TRAVIS' in os.environ:
     # Activate Django-Heroku.
     django_heroku.settings(locals())

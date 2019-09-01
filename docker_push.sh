@@ -5,6 +5,7 @@
 
 
 docker ps
+docker container ls
 sudo docker login --username $HEROKU_DOCKER_USERNAME --password $HEROKU_AUTH_TOKEN registry.heroku.com
 sudo docker tag webapp-dpdth:latest registry.heroku.com/webapp-dpdth/web
 sudo docker inspect --format='{{.Id}}' registry.heroku.com/webapp-dpdth/web
