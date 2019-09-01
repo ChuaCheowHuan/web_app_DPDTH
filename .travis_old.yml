@@ -7,6 +7,9 @@ services:
     - docker
 #    - postgresql
 
+before_install:
+    - chmod +x heroku-container-release.sh
+
 install:
     - pip install -r requirements.txt
 #before_script:
@@ -28,8 +31,21 @@ script:
 #    - python manage.py migrate
 #    - python manage.py test
 
-deploy:
-    provider: script
-    script: bash docker_push.sh
-    on:
-        branch: master
+#deploy:
+#    provider: script
+#    script: bash docker_push.sh
+#    on:
+#        branch: master
+
+after_success:
+    - docker ps
+    - sudo docker login --username $HEROKU_DOCKER_USERNAME --password $HEROKU_AUTH_TOKEN registry.heroku.com
+    - sudo docker tag webapp-dpdth:latest registry.heroku.com/webapp-dpdth/web
+    - sudo docker inspect --format='{{.Id}}' registry.heroku.com/webapp-dpdth/web
+    - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_PULL_REQUEST == "false" ]; then sudo docker push registry.heroku.com/webapp-dpdth/web; fi
+
+    - sudo chown $USER:docker ~/.docker
+    - sudo chown $USER:docker ~/.docker/config.json
+    - sudo chmod g+rw ~/.docker/config.json
+    
+    - ./heroku-container-release.sh
