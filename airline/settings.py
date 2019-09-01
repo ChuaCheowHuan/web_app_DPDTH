@@ -105,8 +105,8 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1', # localhost, local copy of postgres
-#        'HOST': 'db', # Docker copy of postgres
+#        'HOST': '127.0.0.1', # localhost, local copy of postgres
+        'HOST': 'db', # Docker copy of postgres
         'PORT': 5432,
         #'PORT': 5433,
     }
