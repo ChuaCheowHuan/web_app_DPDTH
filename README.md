@@ -343,6 +343,7 @@ This file does several things listed as follows:
 
 2) ```tag``` the source image ```webapp-dpdth:latest``` to the target
 image ```registry.heroku.com/webapp-dpdth/web```.
+Replace ```webapp-dpdth``` with your app name on Heroku.
 
 3) Push the target image to Heroku's registry if the branch tested on Travis
 is a master branch & that it's not a PR.
