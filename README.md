@@ -373,7 +373,6 @@ sudo chmod g+rw ~/.docker/config.json
 This file is for releasing a Docker image via Heroku's API.
 Replace ```webapp-dpdth``` with your app name on Heroku.
 
-{% raw %}
 ```
 #!/bin/bash
 imageId=$(docker inspect registry.heroku.com/webapp-dpdth/web --format={{.Id}})
@@ -384,7 +383,6 @@ curl -n -X PATCH https://api.heroku.com/apps/webapp-dpdth/formation \
 -H "Accept: application/vnd.heroku+json; version=3.docker-releases" \
 -H "Authorization: Bearer $HEROKU_AUTH_TOKEN"
 ```
-{% endraw %}
 
 See [here](https://devcenter.heroku.com/articles/container-registry-and-runtime#releasing-an-image)
 for details.
