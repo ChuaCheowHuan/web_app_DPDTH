@@ -2,5 +2,6 @@
 
 __pycache__/
 
+db.sqlite3
 
 CS50_web_dev/
