@@ -412,7 +412,11 @@ web: gunicorn airline.wsgi
 
 **The deployed web app**
 
-The web app is running on [https://webapp-dpdth.herokuapp.com](https://webapp-dpdth.herokuapp.com)
+With the above files in place, push to Github & Travis will start testing.
+After all tests passed, deployment starts. If there isn't any failures,
+the web app will be running on:
+
+[https://webapp-dpdth.herokuapp.com](https://webapp-dpdth.herokuapp.com)
 
 This [link](https://webapp-dpdth.herokuapp.com/admin) brings you to the admin
 page. It is using the **Heroku's copy** of Postgres.
