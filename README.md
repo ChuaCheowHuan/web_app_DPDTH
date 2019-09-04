@@ -421,6 +421,9 @@ the web app will be running on:
 This [link](https://webapp-dpdth.herokuapp.com/admin) brings you to the admin
 page. It is using the **Heroku's copy** of Postgres.
 
+This [link](https://travis-ci.com/ChuaCheowHuan/web_app_DPDTH/builds/125458792) brings you to my built log in Travis.com which shows how a successful
+test/deploy built looks like.
+
 ---
 
 **Web security:**
