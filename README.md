@@ -33,7 +33,7 @@ During deployment, we have to use Heroku's copy.
 
 **makemigrations**
 
-Always run ```docker-compose web run python manage.py makemigrations``` before
+Always run ```docker-compose run web python manage.py makemigrations``` before
 deployment to Heroku or in our case, before pushing to Github.
 
 The actual ```python manage.py migrate``` for the Postgres server addon from
