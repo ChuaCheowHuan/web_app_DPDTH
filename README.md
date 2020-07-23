@@ -255,12 +255,19 @@ instance of a Docker image.
 Notice the ```sleep``` delay introduced in the 2 ```command:``` sections.
 See [here](https://chuacheowhuan.github.io/docker_travis/) for details.
 
+EDIT: The environment variables are added under `db` as newly required when
+testing on Travis.
+
 ```
 version: '3'
 
 services:
     db:
         image: postgres
+        environment:
+            - POSTGRES_DB=${POSTGRES_DB}
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}        
     migration:
         build: .
         command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python3 manage.py migrate'
